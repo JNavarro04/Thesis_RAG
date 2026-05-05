@@ -1,0 +1,10 @@
+anthropic
+openai
+sentence-transformers
+chromadb
+numpy
+scikit-learn
+azure-cognitiveservices-speech
+google-cloud-texttospeech
+mutagen
+datasets

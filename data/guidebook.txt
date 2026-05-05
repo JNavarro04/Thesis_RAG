@@ -1,0 +1,1012 @@
+================================================================================
+INFORMATION ABOUT THE DOCUMENT
+================================================================================
+
+This guidebook is the source of truth for all facts about the supermarket environment. It is the only document given as a knowledge base. 
+Each entry is written as complete, self-contained manner so that a retrieved chunk contains all the information needed to answer the question 
+without requiring context from surrounding chunks. Entries repeat key facts (such as a zone's location) so any single chunk can stand on its 
+own when retrieved.
+
+Canonical IDs:
+- ZONE_XX  : named zones and sections of the store
+- AISLE_XX : walkable corridors between shelf rows or between a shelf and a wall
+- FEAT_XX  : special features e.g. a cart, supply cart, barriers, etc.
+- ITEM_XX  : products with fixed locations
+- ROUTE_XX : navigation instructions between two locations
+
+DIRECTIONAL CONVENTION
+
+All "left" and "right" references are given from the customer's point of view, where the default view is facing south into the store after entering 
+through the main entrance. This means:
+
+- "Right" (from customer view) = west (compass direction)
+- "Left" (from customer view) = east (compass direction)
+- "Ahead" or "in front" (from customer view) = south
+- "Behind" (from customer view) = north (towards the entrance)
+
+For example, when the document says "the produce section is on the right when entering", this means it is in the north-WEST corner, to the customer's right
+because the customer is facing south.
+
+Compass directions (north, south, east, west) are absolute and refer to walls. Compass directions are given from a birds eye view of the supermarket:
+- North wall: the wall containing the entrance.
+- South wall: the wall containing Fridge 2 and Fridge 3.
+- East wall: the wall containing the TV screen.
+- West wall: the wall in front of which Fridge 1 sits.
+
+Compass directions are used to avoid ambiguity in directions.
+
+================================================================================
+SECTION 0: SUPERMARKET ENVIRONMENT OVERVIEW
+================================================================================
+
+The supermarket is a single open room. The entrance is in the centre of the north wall. When entering, customers face south into the store (customer's point of view). 
+The west side of the store contains the fresh produce displays in the north-west corner and the main shelving area below them, made up of four vertical shelf rows.
+The east side of the store contains the cashier desk in the north-east corner, the bakery shelves below the barriers (which sit just south of the entrance
+for crowd control, to avoid direct random access to the store), and the east shelving area of three horizontal shelf rows. The south wall and south-west corner house 
+three fridges and two freezers.
+The "Fresh Food" decorated wall runs along the west half (customer's right) of the north wall (indicating where the fresh food section is), ending at the entrance. The right
+half of the north wall is plain. A TV screen is mounted on the east wall in the north-east corner, in front of the cashier's desk.
+
+Floor plan, birds-eye view (north = top, entrance = north-centre):
+
+- North wall west half (customer's right): "Fresh Food" decorated wall.
+- North wall east half (customer's left): plain wall, with a TV at the far east end mounted on the east wall.
+- Entrance: centre of north wall, with a basket pile to its right and a shopping cart bay to its left from the customer's view.
+- North-east corner: the cashier desk (exit only, customers leave through here after paying and cannot be used as entrance to the store).
+- North-west corner: fresh section shelving (two display tables with fruit and vegetables).
+- Centre-west: the main shelving area, with four vertical shelf rows (Shelf 1, Shelf 2, Shelf 3, Shelf 4) running north to south. Shelf 1 is westernmost whilst 
+  Shelf 4 is easternmost.
+- Centre-north: barrier queue dividers, immediately south of the entrance. These barriers block direct southward passage from the entrance; customers must enter 
+  the main store through the fresh produce section (ZONE_02). Below the barriers are the two bakery shelves, which sit to the west of the cashier desk.
+- Centre-east: the east shelving area (ZONE_09), containing three horizontal shelf rows (Shelf A, Shelf B, Shelf C) stacked from north to south. Shelf A is northernmost whilst Shelf C is southernmost.
+- South-west corner: Fridge 1 (the dairy fridge), against the west wall. It ends before AISLE_01 begins, meaning no overlap between Fridge 1 and the west wall corridor.
+- South-centre: Freezer 1 and Freezer 2, side by side. Freezer 1 is to the west of Freezer 2 and viceversa.
+- South wall: Fridge 2 and Fridge 3, side by side, to the east of Fridge 1, along the south wall. Fridge 2 is to the west of Fridge 3.
+- West wall corridor (AISLE_01): a narrow corridor between Shelf 1 and the west wall, with a re-supply cart parked near the north end.
+- East side: open floor space east of the east shelving area, leading to the east wall where the TV is mounted.
+
+Customer flow: when entering, customers must go right and through the fresh produce section, and can navigate through open spaces to the cashier desk, 
+which leads to the exit (same door as entrance).
+
+The supermarket is a single-room indoor store designed as a research environment for a virtual human guide. The store contains all the categories
+listed in Sections 1, 2, and 6: fresh produce, bakery, dairy, three fridges, two freezers, and seven shelf rows of packaged goods, household items, and
+pet supplies.
+
+The virtual human guide of the supermarket is known as the VH. The VH exists to help customers find products and locations within the supermarket. The VH
+does not physically move through the store; the VH answers questions verbally about where items are and how to navigate to them. The VH knows
+everything contained in this guidebook and nothing else.
+
+================================================================================
+SECTION 1: ZONES AND NAMED AREAS
+================================================================================
+
+--------------------------------------------------------------------------------
+ZONE_01 — Entrance Area
+
+Name: Entrance Area
+ID: ZONE_01
+Location: Centre of the north wall.
+Description: The entrance to the supermarket is in the centre of the north wall. When entering, customers face south into the store. 
+From the customer's view, the basket pile is to the right of the entrance and the shopping cart bay is to the left of the entrance. 
+Directly ahead of the entrance, the barrier queue dividers (FEAT_03) block straight passage south and customers must turn right and walk through the 
+fresh produce section to enter the rest of the store. The entrance is the only entry and exit point of the store. Customers leave through the cashier area after paying.
+Adjacent zones: ZONE_02 (Fresh Produce Section, to the right upon entry and north-west of the store), ZONE_08 (Cashier Area, to the left upon entry), 
+FEAT_03 (Barrier Queue Dividers, directly ahead looking south).
+Synonyms a customer might use: entrance, entry, front door, way in, way out, front of the store.
+
+--------------------------------------------------------------------------------
+ZONE_02 — Fresh Produce Section
+
+Name: Fresh Produce Section
+ID: ZONE_02
+Location: North-west corner of the store, immediately right after entering from the customer's view.
+Description: The fresh produce section is in the north-west area of the store. It sits beneath the "Fresh Food" decorated wall on the north wall. The section
+contains two open display tables of fruit and vegetables: one large horizontal table and one vertical table beside it. A shopping cart is parked
+nearby. This is the only location in the store where fresh fruit and vegetables are sold. Products in the fresh produce section include fresh
+fruit (apples, bananas, oranges, grapes, lemons, pears, etc.) and fresh vegetables (tomatoes, lettuce, peppers, onions, potatoes, carrots, etc.).
+Because the barriers block direct passage from the entrance, the fresh produce section is the gateway through which all customers enter the main store.
+Adjacent zones: ZONE_01 (Entrance Area, to the east), ZONE_05 (Main Shelving Area, ahead/south), AISLE_01 (West Wall Corridor, to the south), AISLE_02, AISLE_03, AISLE_04.
+Synonyms a customer might use: produce section, fresh section, fruit and vegetable section, vegetable aisle, fruit stand, vegetable stand.
+
+--------------------------------------------------------------------------------
+ZONE_03 — Dairy Fridge
+
+Name: Dairy Fridge (Fridge 1)
+ID: ZONE_03
+Location: South-west corner of the store, against the west wall.
+Description: The dairy fridge is Fridge 1, located in the south-west corner of the store, against the west wall. It is a large upright fridge. Fridge 1 contains 
+dairy products: milk, cheese, yoghurt, butter, eggs, and cream. Fridge 1 ends before AISLE_01 begins meaning there is no overlap between Fridge 1 and the west wall corridor. 
+From a customer who has walked south through the
+main shelving area, Fridge 1 is at the far end on the right (west).
+Adjacent zones: ZONE_06 (Frozen Foods Section, to the east), AISLE_01 (West Wall Corridor, to the north), ZONE_07 (Fridge 2 and Fridge 3, to the east).
+Synonyms a customer might use: dairy section, dairy fridge, dairy aisle, milk, milk section.
+
+--------------------------------------------------------------------------------
+ZONE_04 — Bakery Section
+
+Name: Bakery Section
+ID: ZONE_04
+Location: Centre-north of the store, just south of the barrier dividers, to the west (customer's right) of the cashier desk.
+Description: The bakery section is in the centre-north area of the store, positioned just south of the barrier queue dividers. It consists of two bakery shelves. 
+From the customer's view, the bakery is to the right of the cashier desk; which means it sits west of the cashier. There is open floor space between the bakery 
+shelves and the cashier desk. The bakery section contains baked items such as bread, baguettes, croissants, pastries, muffins, and bread rolls. This is the only location in
+the store where freshly baked items are sold.
+Adjacent zones: ZONE_08 (Cashier Area, to the customer's left/east), ZONE_09 (East Shelving Area, ahead/south), FEAT_03 (Barrier Queue Dividers, to the north), ZONE_05 (Main 
+Shelving Area, to the south-west).
+Synonyms a customer might use: bakery, bread section, bread aisle, pastry section, the bakery shelves.
+
+--------------------------------------------------------------------------------
+ZONE_05 — Main Shelving Area
+
+
+Name: Main Shelving Area
+ID: ZONE_05
+Location: Centre-west of the store, between the produce section to the north and the frozen foods section to the south.
+Description: The main shelving area occupies the centre-west portion of the store. It contains four vertical shelf rows: Shelf 1, Shelf 2, Shelf 3, and Shelf 4. 
+All shelves run north to south, parallel to each other. Shelf 1 is the westernmost (the customer's right when facing south); Shelf 4 is the easternmost (the customer's 
+left when facing south). Between the west wall and Shelf 1 is AISLE_01, between Shelf 1 and Shelf 2 is AISLE_02, between Shelf 2 and Shelf 3 is AISLE_03, between Shelf 3 
+and Shelf 4 is AISLE_04. The shelves contain packaged food and dry items. Shelf 1 holds beverages. Shelf 2 holds pasta, rice, and cereals. Shelf 3 holds canned and jarred
+goods. Shelf 4 holds snacks, candy, and items of the sort.
+Adjacent zones: ZONE_02 (Fresh Produce Section, to the north), ZONE_06 (Frozen Foods Section, to the south), ZONE_09 (East Shelving Area, to the east), AISLE_01 (West 
+Wall Corridor, to the west).
+Synonyms a customer might use: main aisles, central aisles, dry goods, packaged food section, the middle of the store.
+
+--------------------------------------------------------------------------------
+ZONE_06 — Frozen Foods Section
+
+Name: Frozen Foods Section
+ID: ZONE_06
+Location: South-centre of the store, in front of (north of) the south wall.
+Description: The frozen foods section is in the south-centre of the store. It contains two large freezers, Freezer 1 and Freezer 2, placed side by side. Freezer 1 
+is to the west of Freezer 2 (and Freezer 2 is to the east of Freezer 1). The freezers sit in front of (north of) Fridge 2 and Fridge 3, which are mounted on the south wall. 
+A shopping cart is parked beside the freezers (east side). Freezer 1 contains frozen vegetables, frozen fruit, and frozen pizzas. Freezer 2 contains ice cream, frozen ready 
+meals, and frozen fish and meat.
+Adjacent zones: ZONE_03 (Dairy Fridge, to the west), ZONE_07 (Cold Drinks and Ready Meals Fridges, to the east and behind/south), ZONE_05 (Main Shelving Area, to the north),
+AISLE_07 (South Aisle, to the east).
+Synonyms a customer might use: freezers, frozen section, frozen aisle, ice cream section.
+
+--------------------------------------------------------------------------------
+ZONE_07 — Cold Drinks and Ready Meals Fridges
+
+Name: Cold Drinks and Ready Meals Fridges (Fridge 2 and Fridge 3)
+ID: ZONE_07
+Location: Along the south wall of the store, to the east of Fridge 1.
+Description: This zone contains Fridge 2 and Fridge 3, both upright fridges mounted along the south wall. In compass terms they are east of Fridge 1. Fridge 2 is 
+to the west of Fridge 3. Fridge 2 contains cold drinks: cold water bottles, soft drinks, beer, cold juice, and iced tea. Fridge 3 contains ready meals and deli products: 
+pre-packaged sandwiches, salads, sliced cold cuts, ham, salami, and ready-to-eat meals.
+Adjacent zones: ZONE_06 (Frozen Foods Section, to the north), ZONE_03 (Dairy Fridge, to the west), AISLE_07 (South Aisle, to the east).
+Synonyms a customer might use: drinks fridge, beer fridge, deli fridge, cold section, sandwich fridge.
+
+--------------------------------------------------------------------------------
+ZONE_08 — Cashier Area
+
+Name: Cashier Area
+ID: ZONE_08
+Location: North-east corner of the store. From the customer's view upon
+entering, this is immediately on the left.
+Description: The cashier area is in the north-east corner of the store. It consists of a single large cashier desk where customers pay for their goods. The cashier 
+area is on the customer's left when entering, but it is not a valid entry point meaning customers can only enter the main store through the fresh produce section (ZONE_02). 
+The cashier serves as the exit: after paying, customers leave through the cashier area towards the entrance/exit door. A TV screen (FEAT_04) is mounted on the east wall just 
+to the east of the cashier desk. The barrier queue dividers (FEAT_03) sit to the west of the cashier desk (south of the entrance) and guide customers into the fresh produce section.
+This is the only checkout point in the store.
+Adjacent zones: ZONE_01 (Entrance Area, to the west where customers leave the store), ZONE_04 (Bakery Section, to the west), ZONE_09 (East Shelving Area, to the south), 
+FEAT_03 (Barrier Queue Dividers, to the west), FEAT_04 (TV Screen, to the east).
+Synonyms a customer might use: cashier, checkout, register, pay desk, counter.
+
+--------------------------------------------------------------------------------
+ZONE_09 — East Shelving Area
+
+Name: East Shelving Area
+ID: ZONE_09
+Location: East side of the store, below the cashier area and bakery section.
+Description: The east shelving area occupies the right (east) side of the store, below the cashier area and bakery section. It contains three horizontal shelf rows: 
+Shelf A, Shelf B, and Shelf C. All run east to west and are stacked from north to south. Shelf A is northernmost, directly below the cashier area, Shelf B is the middle row 
+and Shelf C is southernmost, with the south aisle (AISLE_07) between it and the south wall. A re-supply cart (FEAT_06) is parked at the north end of this area, between 
+Shelf A and the cashier. Shelf A holds household and cleaning products. Shelf B holds personal care and toiletries. Shelf C holds pet food and pet supplies.
+Adjacent zones: ZONE_08 (Cashier Area, to the north), ZONE_04 (Bakery Section, to the north-west), ZONE_05 (Main Shelving Area, to the west, right from customer view),
+AISLE_07 (South Aisle, to the south, ahead from the customer view).
+Synonyms a customer might use: household section, toiletries, cleaning products, pet supplies.
+
+================================================================================
+SECTION 2: AISLES
+================================================================================
+
+--------------------------------------------------------------------------------
+AISLE_01 — West Wall Corridor
+
+Name: West Wall Corridor (Aisle 1)
+ID: AISLE_01
+Description: AISLE_01 is the narrow corridor running north to south along the west wall of the store, between the west wall and Shelf 1. A re-supply cart (FEAT_05) 
+is parked in this corridor near the northern end. This corridor is primarily used by staff for resupplying but is walkable by customers. It connects the produce 
+section in the north to the dairy fridge in the south-west corner.
+West side: West wall of the store, right side wall when entering the store from the customer's view.
+East side: Shelf 1 (beverages: water, juice cartons, soft drinks at room temperature), left side shelf from customer's view.
+Connects to: ZONE_02 (Fresh Produce Section) to the north, ZONE_03 (Dairy Fridge) to the south.
+Synonyms a customer might use: aisle 1, west aisle, the corridor on the right when facing south.
+
+--------------------------------------------------------------------------------
+AISLE_02 — Aisle Between Shelf 1 and Shelf 2
+
+Name: Aisle 2 (between Shelf 1 and Shelf 2)
+ID: AISLE_02
+Description: AISLE_02 runs north to south between Shelf 1 and Shelf 2 in the main shelving area. Customers can enter from the north (produce side) or from the south 
+(frozen foods side).
+West side: Shelf 1 (beverages: water, juice cartons, soft drinks at room temperature).
+East side: Shelf 2 (pasta, rice, and cereals).
+Connects to: ZONE_02 (Fresh Produce Section) to the north, ZONE_06 (Frozen Foods Section) to the south.
+Synonyms a customer might use: aisle 2, second aisle, beverages aisle, pasta aisle.
+
+--------------------------------------------------------------------------------
+AISLE_03 — Aisle Between Shelf 2 and Shelf 3
+
+Name: Aisle 3 (between Shelf 2 and Shelf 3)
+ID: AISLE_03
+Description: AISLE_03 runs north to south between Shelf 2 and Shelf 3 in the main shelving area. It is the middle aisle of the four vertical shelf rows.
+West side: Shelf 2 (pasta, rice, and cereals).
+East side: Shelf 3 (canned and jarred goods: soups, beans, canned tomatoes, sauces, jam, pickles).
+Connects to: ZONE_02 (Fresh Produce Section) to the north, ZONE_06 (Frozen Foods Section) to the south.
+Synonyms a customer might use: aisle 3, third aisle, middle aisle.
+
+--------------------------------------------------------------------------------
+AISLE_04 — Aisle Between Shelf 3 and Shelf 4
+
+Name: Aisle 4 (between Shelf 3 and Shelf 4)
+ID: AISLE_04
+Description: AISLE_04 runs north to south between Shelf 3 and Shelf 4 in the main shelving area. It is the easternmost aisle of the four vertical shelf rows.
+West side: Shelf 3 (canned and jarred goods).
+East side: Shelf 4 (snacks: chips, chocolate, biscuits, sweets, nuts).
+Connects to: ZONE_02 (Fresh Produce Section) to the north, ZONE_06 (Frozen Foods Section) to the south.
+Synonyms a customer might use: aisle 4, fourth aisle, snacks aisle.
+
+--------------------------------------------------------------------------------
+AISLE_05 — Aisle Between Shelf A and Shelf B
+
+Name: Aisle 5 (between Shelf A and Shelf B)
+ID: AISLE_05
+Description: AISLE_05 runs east to west between Shelf A and Shelf B in the east shelving area. Customers can enter from the west end (from the main shelving area 
+or open floor) or from the east end (from the open floor area near the east wall).
+North side: Shelf A (household and cleaning products: detergent, dish soap, sponges, paper towels, toilet paper, surface cleaners).
+South side: Shelf B (personal care and toiletries: shampoo, toothpaste, deodorant, hand soap, shower gel).
+Connects to: ZONE_05 (Main Shelving Area) to the west, open floor near the east wall to the east.
+Synonyms a customer might use: aisle 5, household aisle, cleaning aisle.
+
+--------------------------------------------------------------------------------
+AISLE_06 — Aisle Between Shelf B and Shelf C
+
+Name: Aisle 6 (between Shelf B and Shelf C)
+ID: AISLE_06
+Description: AISLE_06 runs east to west between Shelf B and Shelf C in the east shelving area.
+North side: Shelf B (personal care and toiletries).
+South side: Shelf C (pet food and pet supplies: dry dog food, dry cat food, canned pet food, pet treats).
+Connects to: ZONE_05 (Main Shelving Area) to the west, open floor near the east wall to the east.
+Synonyms a customer might use: aisle 6, toiletries aisle, pet food aisle.
+
+--------------------------------------------------------------------------------
+AISLE_07 — South Aisle
+
+Name: South Aisle (Aisle 7, between Shelf C and the south-wall fridges)
+ID: AISLE_07
+Description: AISLE_07 is the walkable corridor between Shelf C (the southernmost horizontal shelf in the east shelving area) and the south wall of the store. It runs east 
+to west and provides customer access to Fridge 2 and Fridge 3, which are mounted against the south wall. The chest freezers (Freezer 1 and Freezer 2) are 
+also accessible from the western part of this aisle.
+North side: Shelf C (pet food and pet supplies).
+South side: South wall, straight ahead from customers view.
+Connects to: ZONE_06 (Frozen Foods Section) to the west, ZONE_07 (Fridge 2 and Fridge 3) along the south wall.
+Synonyms a customer might use: aisle 7, south aisle, back aisle, the corridor along the back wall.
+
+================================================================================
+SECTION 3: SPATIAL RELATIONS
+================================================================================
+
+All "left" and "right" in this section are from the customer's view, facing south after entering through the entrance. Compass directions (north, south, east, west) are 
+from a birds eye view where the entrance is located centre-north wall of the supermarket.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_01 — Entrance Area
+
+The Entrance Area (ZONE_01) is in the centre of the north wall. To the right of the entrance (from the customer's view, west in compass) is the Fresh Produce Section (ZONE_02). 
+To the left of the entrance (from the customer's view, east in the compass) is the Cashier Area (ZONE_08), but the cashier area is exit only and cannot be used to enter the store. 
+Directly ahead of the entrance (south) are the barrier queue dividers (FEAT_03), which block straight passage. The basket pile (FEAT_01) is immediately to the right of the entrance 
+doors (west of the entrance). The shopping cart bay (FEAT_02) is immediately to the left of the entrance doors (east of the entrance). ZONE_01 is adjacent to ZONE_02 and ZONE_08, 
+but the only valid path forward into the store is through ZONE_02 (Fresh Produce Section) on the right.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_02 — Fresh Produce Section
+
+The Fresh Produce Section (ZONE_02) is in the north-west corner of the store. From the customer's view upon entering, it is immediately on the right. To the east of ZONE_02 
+is the Entrance Area (ZONE_01). To the west of ZONE_02 is the west wall, and AISLE_01 begins south of the section. To the north of ZONE_02 is the "Fresh Food" decorated wall. 
+To the south of ZONE_02 is the Main Shelving Area (ZONE_05), entered via AISLE_01, AISLE_02, AISLE_03, or AISLE_04. ZONE_02 is adjacent to ZONE_01, ZONE_05, AISLE_01, AISLE_02, 
+AISLE_03, and AISLE_04.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_03 — Dairy Fridge
+
+The Dairy Fridge (ZONE_03, Fridge 1) is in the south-west corner of the store, against the west wall. To the east of the Dairy Fridge is the Frozen Foods Section (ZONE_06). 
+To the north of the Dairy Fridge is AISLE_01 (West Wall Corridor) and the Main Shelving Area (ZONE_05). To the west of the Dairy Fridge is the west wall. 
+Fridge 1 is on the west wall; Fridge 2 and Fridge 3 are on the south wall. They are in the same south-west part of the store but on different walls. ZONE_03 is adjacent to 
+ZONE_05, ZONE_06, ZONE_07, AISLE_01, AISLE_02, AISLE_03, and AISLE_04.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_04 — Bakery Section
+
+The Bakery Section (ZONE_04) is in the centre-north area of the store, just south of the barrier queue dividers (FEAT_03). From the customer's view, it is to the right 
+of the cashier desk; in compass terms, it sits west of the cashier. To the east of ZONE_04 is the Cashier Area (ZONE_08), with open floor space between them. To the west 
+of ZONE_04 is open floor space and beyond that the Main Shelving Area (ZONE_05) and the Fresh Produce Section (ZONE_02). To the north of ZONE_04 are the barrier dividers
+(FEAT_03) and beyond those the Entrance Area (ZONE_01), but the barriers block direct access. To the south of ZONE_04 is the East Shelving Area (ZONE_09). 
+ZONE_04 is adjacent to ZONE_05, ZONE_08, ZONE_09, and FEAT_03.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_05 — Main Shelving Area
+
+The Main Shelving Area (ZONE_05) occupies the centre-west of the store. To the north of ZONE_05 is the Fresh Produce Section (ZONE_02), and to the north-east 
+is the Entrance Area (ZONE_01). To the west of ZONE_05 is AISLE_01 (West Wall Corridor) and the west wall. To the east of ZONE_05 is the East Shelving Area (ZONE_09). 
+To the south of ZONE_05 is the Frozen Foods Section (ZONE_06). ZONE_05 contains Shelf 1 (westernmost, beverages), Shelf 2 (pasta, rice, cereals), 
+Shelf 3 (canned and jarred goods), and Shelf 4 (easternmost, snacks and confectionery), separated by AISLE_02, AISLE_03, and AISLE_04. 
+ZONE_05 is adjacent to ZONE_02, ZONE_06, ZONE_09, and AISLE_01.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_06 — Frozen Foods Section
+
+The Frozen Foods Section (ZONE_06) is in the south-centre of the store. To the north of ZONE_06 is the Main Shelving Area (ZONE_05). To the west of ZONE_06 is the 
+Dairy Fridge (ZONE_03, Fridge 1). To the east of ZONE_06 is AISLE_07 (South Aisle) and beyond that Shelf C (part of ZONE_09). To the south of ZONE_06, against the 
+south wall, are Fridge 2 and Fridge 3 (ZONE_07). Freezer 1 is to the west of Freezer 2. 
+ZONE_06 is adjacent to ZONE_03, ZONE_07, ZONE_05, and AISLE_07.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_07 — Cold Drinks and Ready Meals Fridges
+
+Fridge 2 and Fridge 3 (ZONE_07) are along the south wall of the store. To the north of Fridge 2 and Fridge 3 is the Frozen Foods Section (ZONE_06), which contains 
+both Freezer 1 and Freezer 2. Fridge 2 is to the west of Fridge 3 along the south wall. 
+ZONE_07 is adjacent to ZONE_06, ZONE_03, and AISLE_07.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_08 — Cashier Area
+
+The Cashier Area (ZONE_08) is in the north-east corner of the store. To the north-west of ZONE_08 is the Entrance Area (ZONE_01) where customers exit the store through this 
+direction after paying. To the west of ZONE_08 is the Bakery Section (ZONE_04), with open floor space between them. To the south of ZONE_08 is the East Shelving Area (ZONE_09). 
+To the east of ZONE_08 is the east wall, with the TV screen (FEAT_04). The barrier queue dividers (FEAT_03) are to the west of the cashier desk and direct customers towards the 
+produce section upon entering. 
+ZONE_08 is adjacent to ZONE_01, ZONE_04, ZONE_09, FEAT_03, and FEAT_04.
+
+--------------------------------------------------------------------------------
+Spatial relations for ZONE_09 — East Shelving Area
+
+The East Shelving Area (ZONE_09) is on the east side of the store, below the cashier area and bakery section. To the north of ZONE_09 is the Cashier Area (ZONE_08) 
+and the Bakery Section (ZONE_04). To the west of ZONE_09 is the Main Shelving Area (ZONE_05). To the east of ZONE_09 is the open floor space and the east wall. 
+To the south of ZONE_09 is AISLE_07 (South Aisle). ZONE_09 contains Shelf A (northernmost, household and cleaning products), Shelf B (middle, personal care and toiletries), 
+and Shelf C (southernmost, pet supplies), separated by AISLE_05 and AISLE_06. 
+ZONE_09 is adjacent to ZONE_08, ZONE_05, ZONE_06, ZONE_07, and AISLE_07.
+
+================================================================================
+SECTION 4: NAVIGATION INSTRUCTIONS
+================================================================================
+
+Instructions are written as the VH would say them to a customer. "Left" and "right" are from the customer's view, assuming they are facing the direction of travel.
+
+--------------------------------------------------------------------------------
+ROUTE_01 — From Entrance (ZONE_01) to Fresh Produce Section (ZONE_02)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_02 — Fresh Produce Section
+Instructions: From the entrance, turn right. The fresh produce section is immediately on your right in the north-west corner of the store. You will see the fruit 
+and vegetable display tables under the "Fresh Food" wall.
+Note: The barriers ahead block direct passage south, so the produce section is the route into the rest of the store.
+Landmarks: "Fresh Food" wall, vegetable and fruit display tables.
+
+--------------------------------------------------------------------------------
+ROUTE_02 — From Entrance (ZONE_01) to Dairy Fridge (ZONE_03)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_03 — Dairy Fridge (Fridge 1)
+Instructions: From the entrance, turn right into the produce section. Walk south along the west wall through AISLE_01 (the west wall corridor), passing the re-supply cart. 
+Continue south all the way to the south-west corner. Fridge 1 is the upright fridge in the south-west corner against the west wall.
+Landmarks: Produce displays, west wall, re-supply cart, south-west corner.
+
+--------------------------------------------------------------------------------
+ROUTE_03 — From Entrance (ZONE_01) to Bakery Section (ZONE_04)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_04 — Bakery Section
+Instructions: The bakery section is just south of the entrance, but the barriers block direct passage. From the entrance, turn right into the produce section, then walk south 
+(straight) through any aisle of the main shelving area, and then walk east. The bakery shelves are in the centre-north area, just south of the barriers and west of the cashier desk.
+Landmarks: Produce section, main shelving aisles, barrier queue dividers, two bakery shelves.
+
+--------------------------------------------------------------------------------
+ROUTE_04 — From Entrance (ZONE_01) to Main Shelving Area (ZONE_05)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_05 — Main Shelving Area
+Instructions: From the entrance, turn right into the produce section. Walk south through the produce section. The four vertical shelf rows of the main shelving area are 
+directly ahead, accessible via AISLE_01, AISLE_02, AISLE_03, or AISLE_04.
+Landmarks: Produce displays, four parallel shelf rows.
+
+--------------------------------------------------------------------------------
+ROUTE_05 — From Entrance (ZONE_01) to Frozen Foods Section (ZONE_06)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_06 — Frozen Foods Section
+Instructions: From the entrance, turn right into the produce section, then walk south through any aisle in the main shelving area. Continue all the way to the back of the store. 
+The two chest freezers are at the south end in the centre.
+Landmarks: Produce displays, four shelf rows, chest freezers.
+
+--------------------------------------------------------------------------------
+ROUTE_06 — From Entrance (ZONE_01) to Fridge 2 or Fridge 3 (ZONE_07)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_07 — Fridge 2 or Fridge 3
+Instructions: From the entrance, turn right into the produce section. Walk south through any aisle of the main shelving area. Continue south past the freezers and into 
+ZONE_07 (Fridge 2 and Fridge 3). Fridge 2 and Fridge 3 are along the south wall. Fridge 2 is to the west, Fridge 3 is to the east (Fridge 3 is left, Fridge 2 is right, 
+from customer view in the entrance, looking south).
+Landmarks: Produce, main shelving aisles, freezers, south aisle, south wall.
+
+--------------------------------------------------------------------------------
+ROUTE_07 — From Entrance (ZONE_01) to Cashier Area (ZONE_08)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_08 — Cashier Area
+Instructions: The cashier area is immediately to the left of the entrance in the north-east corner. However, the cashier is exit only and is not used to enter the store. 
+To shop, turn right from the entrance into the produce section instead.
+Landmarks: Cashier desk, TV screen on the east wall.
+
+--------------------------------------------------------------------------------
+ROUTE_08 — From Entrance (ZONE_01) to East Shelving Area (ZONE_09)
+
+Start: ZONE_01 — Entrance Area
+Destination: ZONE_09 — East Shelving Area
+Instructions: The east shelving area is south of the cashier but cannot be reached directly from the entrance because of the barriers. From the entrance, turn right into 
+the produce section, walk south through the main shelving area, then walk east past Shelf 4. The three horizontal shelf rows of the east shelving area are on the east side 
+of the store.
+Landmarks: Produce, main shelving aisles, Shelf 4, east shelving rows.
+
+--------------------------------------------------------------------------------
+ROUTE_09 — From Fresh Produce Section (ZONE_02) to Cashier (ZONE_08)
+
+Start: ZONE_02 — Fresh Produce Section
+Destination: ZONE_08 — Cashier Area
+Instructions: From the Fresh Produce Section, walk a short way south (straight) through any aisle of the main shelving area, and then walk east. The cashier desk is in the 
+north-east corner. To exit go west into the entrance past the cashier.
+Landmarks: South aisle, east shelving rows, cashier desk.
+
+--------------------------------------------------------------------------------
+ROUTE_10 — From Dairy Fridge (Fridge 1) (ZONE_03) to Cashier (ZONE_08)
+
+Start: ZONE_03 — Dairy Fridge, Fridge 1
+Destination: ZONE_08 — Cashier Area
+Instructions: From the Dairy fridge, located south-west, walk north east past the freezers, and in between the Main Shelving Area and the East Shelving area's open floor. 
+The cashier desk is in the north-east corner. To exit go west into the entrance past the cashier.
+Landmarks: South aisle, east shelving rows, cashier desk.
+
+--------------------------------------------------------------------------------
+ROUTE_11 — From Bakery Section (ZONE_04) to Cashier Area (ZONE_08)
+
+Start: ZONE_04 — Bakery Section
+Destination: ZONE_08 — Cashier Area
+Instructions: From the bakery shelves, walk east. The cashier desk is in the north-east corner, just past the open floor space. To exit go west into the entrance past the cashier.
+Landmarks: Open floor, cashier desk.
+
+--------------------------------------------------------------------------------
+ROUTE_12 — From Main Shelving Area (ZONE_05) to Cashier Area (ZONE_08)
+
+Start: ZONE_05 — Main Shelving Area
+Destination: ZONE_08 — Cashier Area
+Instructions: Walk east towards the north-east of the store. The cashier desk is in the north-east corner. 
+To exit go west into the entrance past the cashier.
+Landmarks: Open floor, cashier desk.
+
+--------------------------------------------------------------------------------
+ROUTE_13 — From Frozen Foods (ZONE_06) to Cashier Area (ZONE_08)
+
+Start: ZONE_06 — Frozen Foods Section
+Destination: ZONE_08 — Cashier Area
+Instructions: From the chest freezers, walk east. At the open floor between Main Shelving Area and East Shelving Area, walk north through the open floor. 
+The cashier desk is in the north-east corner. To exit go west into the entrance past the cashier.
+Landmarks: South aisle, east shelving rows, cashier desk.
+
+--------------------------------------------------------------------------------
+ROUTE_14 — From Fridge 2 or Fridge 3 (ZONE_07) to Cashier (ZONE_08)
+
+Start: ZONE_07 — Fridge 2 or Fridge 3
+Destination: ZONE_08 — Cashier Area
+Instructions: From Fridge 2 or Fridge 3 along the south wall, walk north-east through the open area between ZONE_05 (Main Shelving Area) and ZONE_09 (East Shelving Area) 
+until you reach the bakery section, then walk east into the cashier. The cashier desk is in the north-east corner. To exit go west into the entrance past the cashier.
+Landmarks: South aisle, east shelving rows, cashier desk.
+
+--------------------------------------------------------------------------------
+ROUTE_15 — From East Shelving Area (ZONE_09) to Cashier (ZONE_08)
+
+Start: ZONE_09 — East Shelving Area
+Destination: ZONE_08 — Cashier Area
+Instructions: From the east shelving area, walk north (opposite way of the initial customers view at the entrance) past Shelf A and the re-supply cart. The cashier desk 
+is in the north-east corner, directly above the east shelving. To exit go west into the entrance past the cashier.
+Landmarks: Shelf A, re-supply cart, cashier desk.
+
+================================================================================
+SECTION 5: QUICK PRODUCT TO LOCATION INDEX
+================================================================================
+
+This section provides straight answers for every product available in the store. Use this for direct "Where is X?" questions.
+
+Apples — Fresh Produce Section (ZONE_02), display tables.
+Bananas — Fresh Produce Section (ZONE_02), display tables.
+Oranges — Fresh Produce Section (ZONE_02), display tables.
+Grapes — Fresh Produce Section (ZONE_02), display tables.
+Lemons — Fresh Produce Section (ZONE_02), display tables.
+Pears — Fresh Produce Section (ZONE_02), display tables.
+Tomatoes (fresh) — Fresh Produce Section (ZONE_02), display tables.
+Lettuce — Fresh Produce Section (ZONE_02), display tables.
+Peppers — Fresh Produce Section (ZONE_02), display tables.
+Onions — Fresh Produce Section (ZONE_02), display tables.
+Potatoes — Fresh Produce Section (ZONE_02), display tables.
+Carrots — Fresh Produce Section (ZONE_02), display tables.
+Bread (fresh) — Bakery Section (ZONE_04), bakery shelves.
+Baguettes — Bakery Section (ZONE_04), bakery shelves.
+Croissants — Bakery Section (ZONE_04), bakery shelves.
+Pastries — Bakery Section (ZONE_04), bakery shelves.
+Muffins — Bakery Section (ZONE_04), bakery shelves.
+Bread rolls — Bakery Section (ZONE_04), bakery shelves.
+Milk — Fridge 1 / Dairy Fridge (ZONE_03), south-west corner.
+Cheese — Fridge 1 / Dairy Fridge (ZONE_03), south-west corner.
+Yoghurt — Fridge 1 / Dairy Fridge (ZONE_03), south-west corner.
+Butter — Fridge 1 / Dairy Fridge (ZONE_03), south-west corner.
+Eggs — Fridge 1 / Dairy Fridge (ZONE_03), south-west corner.
+Cream — Fridge 1 / Dairy Fridge (ZONE_03), south-west corner.
+Bottled water (room temperature) — Shelf 1 (ZONE_05), beverages.
+Juice cartons (room temperature) — Shelf 1 (ZONE_05), beverages.
+Soft drinks (room temperature) — Shelf 1 (ZONE_05), beverages.
+Cold water — Fridge 2 (ZONE_07), cold drinks fridge.
+Beer — Fridge 2 (ZONE_07), cold drinks fridge.
+Iced tea — Fridge 2 (ZONE_07), cold drinks fridge.
+Cold juice — Fridge 2 (ZONE_07), cold drinks fridge.
+Cold soft drinks — Fridge 2 (ZONE_07), cold drinks fridge.
+Sandwiches (cold) — Fridge 3 (ZONE_07), ready meals fridge.
+Salads (cold) — Fridge 3 (ZONE_07), ready meals fridge.
+Cold cuts — Fridge 3 (ZONE_07), ready meals fridge.
+Ham — Fridge 3 (ZONE_07), ready meals fridge.
+Salami — Fridge 3 (ZONE_07), ready meals fridge.
+Ready meals (cold) — Fridge 3 (ZONE_07), ready meals fridge.
+Pasta (dried) — Shelf 2 (ZONE_05), pasta-rice-cereals.
+Rice — Shelf 2 (ZONE_05), pasta-rice-cereals.
+Cereals — Shelf 2 (ZONE_05), pasta-rice-cereals.
+Oats — Shelf 2 (ZONE_05), pasta-rice-cereals.
+Noodles — Shelf 2 (ZONE_05), pasta-rice-cereals.
+Canned soup — Shelf 3 (ZONE_05), canned and jarred goods.
+Canned beans — Shelf 3 (ZONE_05), canned and jarred goods.
+Canned tomatoes — Shelf 3 (ZONE_05), canned and jarred goods.
+Pasta sauce (jarred) — Shelf 3 (ZONE_05), canned and jarred goods.
+Jam — Shelf 3 (ZONE_05), canned and jarred goods.
+Pickles — Shelf 3 (ZONE_05), canned and jarred goods.
+Chips / crisps — Shelf 4 (ZONE_05), snacks and confectionery.
+Chocolate — Shelf 4 (ZONE_05), snacks and confectionery.
+Biscuits / cookies — Shelf 4 (ZONE_05), snacks and confectionery.
+Sweets / candy — Shelf 4 (ZONE_05), snacks and confectionery.
+Nuts — Shelf 4 (ZONE_05), snacks and confectionery.
+Laundry detergent — Shelf A (ZONE_09), household and cleaning.
+Dish soap — Shelf A (ZONE_09), household and cleaning.
+Sponges — Shelf A (ZONE_09), household and cleaning.
+Paper towels — Shelf A (ZONE_09), household and cleaning.
+Toilet paper — Shelf A (ZONE_09), household and cleaning.
+Surface cleaner — Shelf A (ZONE_09), household and cleaning.
+Shampoo — Shelf B (ZONE_09), personal care and toiletries.
+Toothpaste — Shelf B (ZONE_09), personal care and toiletries.
+Deodorant — Shelf B (ZONE_09), personal care and toiletries.
+Hand soap — Shelf B (ZONE_09), personal care and toiletries.
+Shower gel — Shelf B (ZONE_09), personal care and toiletries.
+Dry dog food — Shelf C (ZONE_09), pet food and pet supplies.
+Dry cat food — Shelf C (ZONE_09), pet food and pet supplies.
+Canned pet food — Shelf C (ZONE_09), pet food and pet supplies.
+Pet treats — Shelf C (ZONE_09), pet food and pet supplies.
+Frozen vegetables — Freezer 1 (ZONE_06), south-centre.
+Frozen fruit — Freezer 1 (ZONE_06), south-centre.
+Frozen pizza — Freezer 1 (ZONE_06), south-centre.
+Ice cream — Freezer 2 (ZONE_06), south-centre.
+Frozen ready meals — Freezer 2 (ZONE_06), south-centre.
+Frozen fish — Freezer 2 (ZONE_06), south-centre.
+Frozen meat — Freezer 2 (ZONE_06), south-centre.
+
+================================================================================
+SECTION 6: PRODUCT GROUPS WITH FIXED LOCATIONS
+================================================================================
+
+This section gives full entries for each product group. These are the canonical sources that ground truth answers should reference for the QA dataset.
+
+--------------------------------------------------------------------------------
+ITEM_01 — Fresh Fruit
+
+Name: Fresh Fruit
+ID: ITEM_01
+Location: Fresh fruit is in the Fresh Produce Section (ZONE_02), in the north-west corner of the store, on the customer's right when entering, on the open display tables.
+Notes: Fresh fruit includes apples, bananas, oranges, grapes, lemons, and pears. 
+This is fresh fruit. Frozen fruit is in Freezer 1 (ZONE_06).
+
+--------------------------------------------------------------------------------
+ITEM_02 — Fresh Vegetables
+
+Name: Fresh Vegetables
+ID: ITEM_02
+Location: Fresh vegetables are in the Fresh Produce Section (ZONE_02), in the north-west corner of the store, on the customer's right when entering, on the open display tables.
+Notes: Fresh vegetables include tomatoes, lettuce, peppers, onions, potatoes, and carrots. 
+These are fresh vegetables. Frozen vegetables are in Freezer 1 (ZONE_06) at the back of the store.
+
+--------------------------------------------------------------------------------
+ITEM_03 — Fresh Bread and Pastries
+
+Name: Fresh Bread and Pastries
+ID: ITEM_03
+Location: Fresh bread and pastries are in the Bakery Section (ZONE_04), on the two bakery shelves in the centre-north area, just south of the barrier dividers (FEAT_03).
+Notes: Items include loaves of bread, baguettes, croissants, pastries, muffins, and bread rolls. 
+These are freshly baked items. The store does not sell packaged or sliced bread on the main shelves, all bread is in the bakery.
+
+--------------------------------------------------------------------------------
+ITEM_04 — Dairy Products
+
+Name: Dairy Products
+ID: ITEM_04
+Location: Dairy products are in the Dairy Fridge (ZONE_03, Fridge 1), in the south-west corner against the west wall.
+Notes: Dairy products include milk, cheese, yoghurt, butter, eggs, and cream. 
+Eggs are stored in the dairy fridge despite not being a dairy product.
+
+--------------------------------------------------------------------------------
+ITEM_05 — Cold Drinks
+
+Name: Cold Drinks
+ID: ITEM_05
+Location: Cold drinks are in Fridge 2 (ZONE_07), along the south wall in between the freezers (ZONE_06) and the south wall.
+Notes: Cold drinks include cold water bottles, soft drinks, beer, cold juice, and iced tea. 
+Room-temperature versions of these drinks (water, juice, soft drinks) are on Shelf 1 in the Main Shelving Area (ZONE_05).
+
+--------------------------------------------------------------------------------
+ITEM_06 — Ready Meals and Deli Products
+
+Name: Ready Meals and Deli Products
+ID: ITEM_06
+Location: Ready meals and deli products are in Fridge 3 (ZONE_07), along the south wall to the east of Fridge 2.
+Notes: Items include pre-packaged sandwiches, salads, sliced cold cuts, ham, salami, and ready-to-eat meals. 
+Frozen ready meals are in Freezer 2 (ZONE_06).
+
+--------------------------------------------------------------------------------
+ITEM_07 — Frozen Vegetables
+
+Name: Frozen Vegetables
+ID: ITEM_07
+Location: Frozen vegetables are in Freezer 1 (ZONE_06), in the south-centre of the store.
+Notes: Fresh vegetables are sold separately in the Fresh Produce Section (ZONE_02) near the entrance.
+
+--------------------------------------------------------------------------------
+ITEM_08 — Frozen Fruit
+
+Name: Frozen Fruit
+ID: ITEM_08
+Location: Frozen fruit is in Freezer 1 (ZONE_06), in the south-centre of the store.
+Notes: Fresh fruit is sold separately in the Fresh Produce Section (ZONE_02) north of the freezers past Main Shelving Area (ZONE_05).
+
+--------------------------------------------------------------------------------
+ITEM_09 — Frozen Pizza
+
+Name: Frozen Pizza
+ID: ITEM_09
+Location: Frozen pizza is in Freezer 1 (ZONE_06), in the south-centre of the store.
+Notes: The store does not have a fresh pizza counter.
+
+--------------------------------------------------------------------------------
+ITEM_10 — Ice Cream
+
+Name: Ice Cream
+ID: ITEM_10
+Location: Ice cream is in Freezer 2 (ZONE_06), to the east of Freezer 1.
+Notes: None.
+
+--------------------------------------------------------------------------------
+ITEM_11 — Frozen Ready Meals
+
+Name: Frozen Ready Meals
+ID: ITEM_11
+Location: Frozen ready meals are in Freezer 2 (ZONE_06), in the south-centre of the store.
+Notes: Cold (non-frozen) ready meals are in Fridge 3 (ZONE_07) south of the freezers.
+
+--------------------------------------------------------------------------------
+ITEM_12 — Frozen Fish and Meat
+
+Name: Frozen Fish and Meat
+ID: ITEM_12
+Location: Frozen fish and meat are in Freezer 2 (ZONE_06).
+Notes: The store does not have a fresh fish or fresh meat counter. All fish and meat in this store is frozen.
+
+--------------------------------------------------------------------------------
+ITEM_13 — Beverages (Room Temperature)
+
+Name: Beverages (Room Temperature)
+ID: ITEM_13
+Location: Room-temperature beverages are on Shelf 1 in the Main Shelving Area (ZONE_05). Shelf 1 is the westernmost vertical shelf row, accessed via AISLE_01 or AISLE_02.
+Notes: This shelf holds room temperature bottled water, juice cartons, and soft drinks. Cold versions of these drinks are in Fridge 2 (ZONE_07).
+
+--------------------------------------------------------------------------------
+ITEM_14 — Pasta, Rice, and Cereals
+
+Name: Pasta, Rice, and Cereals
+ID: ITEM_14
+Location: Pasta, rice, and cereals are on Shelf 2 in the Main Shelving Area (ZONE_05). Shelf 2 is the second vertical shelf from the west, accessed via AISLE_02 or AISLE_03.
+Notes: Items include dried pasta, rice, breakfast cereals, oats, and noodles.
+
+--------------------------------------------------------------------------------
+ITEM_15 — Canned and Jarred Goods
+
+Name: Canned and Jarred Goods
+ID: ITEM_15
+Location: Canned and jarred goods are on Shelf 3 in the Main Shelving Area (ZONE_05). Shelf 3 is the third vertical shelf from the west, accessed via AISLE_03 or AISLE_04.
+Notes: Items include canned soups, beans, canned tomatoes, pasta sauces in jars, jam, and pickles. Canned tomatoes here are different from fresh tomatoes in ZONE_02.
+
+
+--------------------------------------------------------------------------------
+ITEM_16 — Snacks and Confectionery
+
+Name: Snacks and Confectionery
+ID: ITEM_16
+Location: Snacks and confectionery are on Shelf 4 in the Main Shelving Area (ZONE_05). Shelf 4 is the easternmost vertical shelf, accessed via AISLE_04 or the open floor 
+between the main shelving area and the east shelving area.
+Notes: Items include potato chips (also called crisps), chocolate, cookies/biscuits, sweets/candy, and nuts.
+
+--------------------------------------------------------------------------------
+ITEM_17 — Household and Cleaning Products
+
+Name: Household and Cleaning Products
+ID: ITEM_17
+Location: Household and cleaning products are on Shelf A in the East Shelving Area (ZONE_09). Shelf A is the northernmost horizontal shelf, directly south of the cashier area.
+Notes: Items include laundry detergent, dish soap, sponges, paper towels, toilet paper, and surface cleaners.
+
+--------------------------------------------------------------------------------
+ITEM_18 — Personal Care and Toiletries
+
+Name: Personal Care and Toiletries
+ID: ITEM_18
+Location: Personal care and toiletries are on Shelf B in the East Shelving Area (ZONE_09). Shelf B is the middle horizontal shelf, accessed via AISLE_05 or AISLE_06.
+Notes: Items include shampoo, toothpaste, deodorant, hand soap, and shower gel.
+
+--------------------------------------------------------------------------------
+ITEM_19 — Pet Food and Pet Supplies
+
+Name: Pet Food and Pet Supplies
+ID: ITEM_19
+Location: Pet food and pet supplies are on Shelf C in the East Shelving Area (ZONE_09). Shelf C is the southernmost horizontal shelf, accessed via AISLE_06 or the south 
+aisle (AISLE_07).
+Notes: Items include dry dog food, dry cat food, canned pet food, and pet treats.
+
+================================================================================
+SECTION 7: FEATURES AND FACILITIES
+================================================================================
+
+--------------------------------------------------------------------------------
+FEAT_01 — Basket Pile
+
+Name: Basket Pile
+ID: FEAT_01
+Description: The basket pile is immediately to the right of the entrance doors when entering (i.e. west of the entrance, on the north wall). 
+Customers pick up a hand basket here when entering.
+Adjacent to: ZONE_01 (Entrance Area).
+
+--------------------------------------------------------------------------------
+FEAT_02 — Shopping Cart Bay (Entrance)
+
+Name: Shopping Cart Bay at Entrance
+ID: FEAT_02
+Description: The shopping cart bay is immediately to the left of the entrance doors when entering (i.e. east of the entrance, on the north wall, 
+between the entrance and the cashier). Customers collect a shopping cart here when entering. 
+Adjacent to: ZONE_01 (Entrance Area) and ZONE_08 (Cashier).
+
+--------------------------------------------------------------------------------
+FEAT_03 — Barrier Queue Dividers
+
+Name: Barrier Queue Dividers
+ID: FEAT_03
+Description: The barrier queue dividers are a row of retractable post barriers in the centre-north area of the store, immediately south of the entrance. 
+They block direct passage south from the entrance and direct customers to enter the store via the fresh produce section to the right. The bakery shelves sit just south 
+of the barriers.
+Adjacent to: ZONE_01 (Entrance Area), ZONE_04 (Bakery Section), ZONE_08 (Cashier Area).
+
+--------------------------------------------------------------------------------
+FEAT_04 — TV Screen
+
+Name: TV Screen
+ID: FEAT_04
+Description: A TV screen is mounted on the east wall of the store in the north-east corner, just east and in front of the cashier desk. 
+Adjacent to: ZONE_08 (Cashier Area).
+
+--------------------------------------------------------------------------------
+FEAT_05 — Re-supply Cart (West Side)
+
+Name: Re-supply Cart on the West Side
+ID: FEAT_05
+Description: A re-supply cart is parked in AISLE_01 (the West Wall Corridor), near the northern end, between the west wall and Shelf 1. It is used by staff 
+to resupply the vertical shelf rows.
+Adjacent to: AISLE_01 (West Wall Corridor), ZONE_05 (Main Shelving Area).
+
+--------------------------------------------------------------------------------
+FEAT_06 — Re-supply Cart (East Side)
+
+Name: Re-supply Cart on the East Side
+ID: FEAT_06
+Description: A re-supply cart is parked at the north end of the East Shelving Area (ZONE_09), between Shelf A and the cashier desk. 
+Adjacent to: ZONE_09 (East Shelving Area), ZONE_08 (Cashier Area).
+
+--------------------------------------------------------------------------------
+FEAT_07 — Shopping Cart Near Produce
+
+Name: Shopping Cart near Produce
+ID: FEAT_07
+Description: A shopping cart is parked in the Fresh Produce Section (ZONE_02) near the display tables. 
+Adjacent to: ZONE_02 (Fresh Produce Section).
+
+--------------------------------------------------------------------------------
+FEAT_08 — Shopping Cart Near Freezers
+
+Name: Shopping Cart near Freezers
+ID: FEAT_08
+Description: A shopping cart is parked in the Frozen Foods Section (ZONE_06) beside the chest freezers. 
+Adjacent to: ZONE_06 (Frozen Foods Section).
+
+================================================================================
+SECTION 8: DISAMBIGUATION CASES
+================================================================================
+
+--------------------------------------------------------------------------------
+8.1 Similar-Name Disambiguation
+
+Fresh vegetables versus frozen vegetables: Fresh vegetables are sold in the Fresh Produce Section (ZONE_02), on the open display tables in the
+north-west corner near the entrance. Frozen vegetables are sold in Freezer 1 (ZONE_06) at the south-centre of the store. These are two different
+locations. If a customer asks for vegetables without specifying, ask whether they want fresh or frozen.
+
+Fresh fruit versus frozen fruit: Fresh fruit is in the Fresh Produce Section (ZONE_02). Frozen fruit is in Freezer 1 (ZONE_06). If a customer asks for
+fruit without specifying, ask whether they want fresh or frozen.
+
+Fresh tomatoes versus canned tomatoes: Fresh tomatoes are in the Fresh Produce Section (ZONE_02). Canned tomatoes are on Shelf 3 (ZONE_05). The
+store does not supply frozen tomatoes specifically. If a customer asks for tomatoes, clarify which form they want.
+
+Bottled juice (cold) versus bottled juice (room temperature) versus fresh juice: This store does not sell freshly squeezed juice. Bottled juice is
+available in two forms: cold bottled juice in Fridge 2 (ZONE_07), and room-temperature bottled juice on Shelf 1 (ZONE_05). If a customer asks for
+juice, clarify whether they want cold or room-temperature.
+
+Cold drinks versus room-temperature drinks: Cold drinks (water, soft drinks, juice, beer, iced tea) are in Fridge 2 (ZONE_07) along the south
+wall. Room-temperature drinks (water, juice cartons, soft drinks) are on Shelf 1 (ZONE_05) in the main shelving area. If a customer asks for drinks
+without specifying, clarify which type they want.
+
+Cold ready meals versus frozen ready meals: Cold (non-frozen) ready meals are in Fridge 3 (ZONE_07) along the south wall. Frozen ready meals
+are in Freezer 2 (ZONE_06). If a customer asks for ready meals without specifying, ask whether they want cold or frozen.
+
+Bread (fresh) versus packaged bread: All bread in this store is fresh and is in the Bakery Section (ZONE_04). The store does not supply packaged or
+sliced bread on the main shelves. If a customer asks for bread, the answer is always the bakery shelves.
+
+Fish and meat: This store does not have a fresh fish or fresh meat counter. All fish and meat is frozen and located in Freezer 2 (ZONE_06). Sliced cold
+cuts (ham, salami) are in Fridge 3 (ZONE_07) — these are processed cured meats, not fresh meat. If a customer asks for meat, clarify whether they
+want frozen meat (Freezer 2) or sliced cold cuts (Fridge 3).
+
+Fridge 1 versus Fridge 2 versus Fridge 3: The store has three upright fridges. Fridge 1 (ZONE_03, the Dairy Fridge) is in the south-west corner
+against the west wall. Fridge 2 (ZONE_07) contains cold drinks and is along the south wall. Fridge 3 (ZONE_07) contains ready meals and deli
+products and is along the south wall, to the east of Fridge 2. These are three distinct fridges with different contents and positions.
+
+Freezer 1 versus Freezer 2: The store has two chest freezers. Freezer 1 is to the west and contains frozen vegetables, frozen fruit, and frozen pizza.
+Freezer 2 is to the east of Freezer 1 and contains ice cream, frozen ready meals, and frozen fish and meat.
+
+Freezers versus fridges: The store has two chest freezers (Freezer 1 and Freezer 2) and three upright fridges (Fridge 1, Fridge 2, Fridge 3). The
+freezers contain frozen food. The fridges contain refrigerated but non-frozen products. If a customer asks for "the freezer" they mean the
+chest freezers (ZONE_06). If they ask for "the fridge" without specifying, ask which.
+
+Bakery shelves versus bakery aisle: This store does not have a dedicated bakery aisle. The bakery section consists of two shelves in the centre-north
+area below the barriers (ZONE_04). All these names refer to the same place.
+
+Shelf 1 versus Shelf A: The store has shelves with both numeric labels (1 to 4 in the main shelving area) and letter labels (A to C in the east
+shelving area). Shelf 1 is the westernmost vertical shelf in the main shelving area (ZONE_05) and holds beverages. Shelf A is the northernmost
+horizontal shelf in the east shelving area (ZONE_09) and holds household and cleaning products. These are different shelves in different parts of the
+store.
+
+Vertical shelves versus horizontal shelves: Shelves 1 to 4 in the Main Shelving Area (ZONE_05) are oriented north-to-south (called "vertical" in
+this guidebook). Shelves A to C in the East Shelving Area (ZONE_09) are oriented east-to-west (called "horizontal" in this guidebook). All seven
+shelf rows are of normal supermarket height.
+
+Customer-view "left" versus compass "east": Throughout this guidebook, "left" and "right" are from the customer's view facing south after entering.
+The customer's right corresponds to compass west, and the customer's left corresponds to compass east. So the produce section, which is "on the right
+when entering", is in the north-WEST corner.
+
+Entrance versus exit: The entrance is in the centre of the north wall and is the only way into the store. The cashier area in the north-east corner is
+the only way out of the store after paying. A customer cannot exit through the entrance, and cannot enter through the cashier.
+
+--------------------------------------------------------------------------------
+8.2 Multi-Location Items
+
+Vegetables: Fresh vegetables are in ZONE_02 (Produce Section). Frozen vegetables are in Freezer 1 (ZONE_06). Always clarify which the customer
+wants.
+
+Fruit: Fresh fruit is in ZONE_02 (Produce Section). Frozen fruit is in Freezer 1 (ZONE_06). Always clarify which the customer wants.
+
+Juice: Bottled cold juice is in Fridge 2 (ZONE_07). Bottled room-temperature juice is on Shelf 1 (ZONE_05). Always clarify which the
+customer wants.
+
+Drinks: Cold drinks are in Fridge 2 (ZONE_07). Room-temperature drinks are on Shelf 1 (ZONE_05). Always clarify which the customer wants.
+
+Ready meals: Cold ready meals are in Fridge 3 (ZONE_07). Frozen ready meals are in Freezer 2 (ZONE_06). Always clarify which the customer wants.
+
+Tomatoes: Fresh tomatoes are in ZONE_02. Canned tomatoes are on Shelf 3 (ZONE_05). The store does not supply frozen tomatoes specifically.
+
+Meat: Frozen meat (and fish) is in Freezer 2 (ZONE_06). Sliced cold cuts and processed meats (ham, salami) are in Fridge 3 (ZONE_07). The store does not
+sell fresh raw meat at a counter.
+
+--------------------------------------------------------------------------------
+8.3 Out-of-Scope Questions
+
+Price information: The guidebook does not contain any product prices. the VH cannot answer questions about how much anything costs.
+
+Opening hours: The guidebook does not contain information about store opening or closing times.
+
+Supply availability: The guidebook does not record whether any item is currently in supply or out of supply.
+
+Staff names: The guidebook does not record the names of any supermarket staff other than the virtual guide, the VH.
+
+Products not supplied: This store does not supply the following: fresh fish at a counter, fresh meat at a counter, hot food, prepared deli food made to
+order, alcohol other than beer (no wine, spirits, or cocktails), tobacco products, magazines, newspapers, books, electronics, clothing, toys, kitchen
+equipment, flowers, garden supplies, baby products such as nappies or formula, medicines, vitamins. If a customer asks for any of these, state
+that the store does not carry them.
+
+Outside the store: The guidebook covers only the interior of the supermarket. the VH cannot answer questions about parking, the surrounding
+streets, public transport, or other shops.
+
+Recipes and cooking advice: The guidebook does not contain recipes or cooking instructions. If a customer asks how to cook or prepare an item,
+state that this is not information you have.
+
+Nutritional information: The guidebook does not contain nutritional facts, allergen information, or ingredient lists for any product.
+
+Origin and supplier information: The guidebook does not contain information about where products are sourced from, manufacturer details, or country of
+origin.
+
+================================================================================
+SECTION 9: COMPOUND SHOPPING SCENARIOS
+================================================================================
+
+This section provides example route plans for customers picking up multiple items.
+
+--------------------------------------------------------------------------------
+SCENARIO_01 — Bread, milk, and eggs
+
+Items requested: bread, milk, eggs. Route summary: Bread is in the Bakery Section (ZONE_04). Milk and eggs are
+both in the Dairy Fridge (ZONE_03, Fridge 1). A good route is: from the entrance, turn right into the produce section, then walk south through
+AISLE_01 (the west wall corridor) to Fridge 1 in the south-west corner for milk and eggs, walk east along the bottom, then north through the 
+open floor between the shelving areas, to reach the bakery in the centre-north, then exit via cashier.
+
+--------------------------------------------------------------------------------
+SCENARIO_02 — Pasta, pasta sauce, and cheese
+
+Items requested: pasta, pasta sauce, cheese. Route summary: Pasta is on Shelf 2 (ZONE_05). Pasta sauce in jars is on
+Shelf 3 (ZONE_05), the next shelf to the east. Cheese is in the Dairy Fridge (ZONE_03, Fridge 1). A good route is: from the entrance, turn right
+into the produce section, then enter AISLE_03 from the north. Pick up pasta from Shelf 2 on your west side and pasta sauce from Shelf 3 on your east
+side. Continue south, then turn west to reach Fridge 1 in the south-west corner.
+
+--------------------------------------------------------------------------------
+SCENARIO_03 — Snacks and drinks for a party
+
+Items requested: chips, chocolate, soft drinks, beer. Route summary: Chips and chocolate are on Shelf 4 (ZONE_05).
+Room-temperature soft drinks are on Shelf 1 (ZONE_05). Beer is in Fridge 2 (ZONE_07). A good route is: from the entrance, turn right into the produce
+section, walk south through AISLE_02 (drinks on Shelf 1 to the west of the aisle), then through AISLE_04 to reach Shelf 4 (snacks on the east side of
+the aisle), then continue south to Fridge 2 along the south wall for beer.
+
+--------------------------------------------------------------------------------
+SCENARIO_04 — A fresh meal: vegetables, frozen fish, rice
+
+Items requested: fresh vegetables, frozen fish, rice. Route summary: Fresh vegetables are in the Produce Section (ZONE_02), on
+the right when entering. Frozen fish is in Freezer 2 (ZONE_06). Rice is on Shelf 2 (ZONE_05). A good route is: pick up vegetables in the produce
+section on entry, walk south through AISLE_02 or AISLE_03 to pick up rice from Shelf 2, continue south to Freezer 2 in the south-centre.
+
+--------------------------------------------------------------------------------
+SCENARIO_05 — Cleaning supplies and toiletries
+
+Items requested: laundry detergent, toilet paper, shampoo, toothpaste. Route summary: Detergent and toilet paper are on Shelf A (ZONE_09). Shampoo
+and toothpaste are on Shelf B (ZONE_09). A good route is: from the entrance, turn right into the produce section, walk south through any aisle
+of the main shelving area, then walk east past Shelf 4 to the east shelving area. Pick up Shelf A items, then move to AISLE_05 or AISLE_06 to access
+Shelf B.
+
+--------------------------------------------------------------------------------
+SCENARIO_06 — Pet supplies and food shopping
+
+Items requested: dry dog food, fresh vegetables, dairy. Route summary: Dog food is on Shelf C (ZONE_09). Fresh vegetables are in
+the Produce Section (ZONE_02). Dairy is in Fridge 1 (ZONE_03). A good route is: pick up fresh vegetables in the produce section on entry, walk south
+through AISLE_01 to Fridge 1 for dairy, then walk east through AISLE_07 (the south aisle) to access Shelf C for pet food.
+
+================================================================================
+END OF GUIDEBOOK
+================================================================================
