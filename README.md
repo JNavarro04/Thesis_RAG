@@ -10,6 +10,8 @@ Radboud University · BSc Artificial Intelligence · Expected completion: July 2
 
 This project implements and evaluates two Retrieval-Augmented Generation (RAG) chunking strategies for a Unity 3D virtual human supermarket guide. The system answers product and navigation questions by retrieving relevant chunks from a knowledge base and generating responses via an LLM.
 
+The Unity environment was provided by the Theis Supervisor. Expect files to be irrelevant until final completion + upload.
+
 ## Research Question
 
 Does semantic chunking (Kiss et al., 2025) outperform fixed-size chunking in terms of accuracy, faithfulness, and latency in a RAG-based virtual human system?
